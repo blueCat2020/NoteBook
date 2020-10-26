@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.SimpleAdapter;
@@ -42,7 +43,10 @@ public class HomeFragment extends Fragment {
     private List<HashMap<String,String>> note_list;
     private SwipeMenuListView listView;
     private SimpleAdapter adapter;
+    private  SearchView searchView;
+    private  Spinner spinner;
     private NoteDAO noteDAO;
+    private ImageButton refresh;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -67,8 +71,9 @@ public class HomeFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         noteDAO=new NoteDAO(getContext());
-        Spinner spinner=getActivity().findViewById(R.id.note_type);
-        SearchView searchView=getActivity().findViewById(R.id.searchView);
+        spinner=getActivity().findViewById(R.id.note_type);
+        refresh= getActivity().findViewById(R.id.refresh);
+        searchView=getActivity().findViewById(R.id.searchView);
 
 
         setNoteList(CommonValue.ALL_THE_NOTES);
@@ -76,6 +81,15 @@ public class HomeFragment extends Fragment {
         homeViewModel.setNoteList(noteList);
         setListView();
 
+        refresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String noteType = (String)spinner.getSelectedItem();
+                setNoteList(noteType);
+                setNote_list();
+                setListView();
+            }
+        });
         //为SearchView组件设置事件监听器
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
             @Override
@@ -93,6 +107,7 @@ public class HomeFragment extends Fragment {
                 return false;
             }
         });
+
         TypeSelectListener(spinner);
         setOnItemClickListener(listView);
         setMenuItemClickListener(listView);
