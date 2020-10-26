@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="noteType">
+        <item>All the notes</item>
+        <item>Life</item>
+        <item>Travel</item>
+        <item>Person</item>
+        <item>Work</item>
+        <item>Others</item>
+    </string-array>
+</resources>
