@@ -146,7 +146,7 @@ public class NoteDAO {
 		db = helper.getReadableDatabase();
 		// 初始化SQLiteDatabase对象
 
-		Cursor cursor = db.rawQuery("select * from tb_note order by year desc,month desc,day desc,clock desc",
+		Cursor cursor = db.rawQuery("select * from tb_note order by year desc,month desc,day desc,clock desc,id desc",
 				new String[] { });
 		// 获取所有便签信息
 		while (cursor.moveToNext())
