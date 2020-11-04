@@ -43,8 +43,6 @@ public class HomeFragment extends Fragment {
     private List<HashMap<String,String>> note_list;
     private SwipeMenuListView listView;
     private SimpleAdapter adapter;
-    private  SearchView searchView;
-    private  Spinner spinner;
     private NoteDAO noteDAO;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -69,58 +67,12 @@ public class HomeFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         noteDAO=new NoteDAO(getContext());
         listView= getActivity().findViewById(R.id.noteList);
-        spinner=getActivity().findViewById(R.id.note_type);
-        searchView=getActivity().findViewById(R.id.searchView);
         noteList=homeViewModel.getNotesData(CommonValue.ALL_THE_NOTES);
         setNote_list();
         setListView();
-
-/*
-        setNoteList(CommonValue.ALL_THE_NOTES);
-
-        refresh.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String noteType = (String)spinner.getSelectedItem();
-                setNoteList(noteType);
-                setNote_list();
-                setListView();
-            }
-        });
-        //为SearchView组件设置事件监听器
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                noteList=noteDAO.findByTitle(query);
-                setNote_list();
-                setListView();
-
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String s) {
-
-                return false;
-            }
-        });
-
-        TypeSelectListener(spinner);
-
- */
         setOnItemClickListener(listView);
         setMenuItemClickListener(listView);
         Log.i(TAG, "onActivityCreated: ");
-    }
-    private void setNoteList(String noteType){
-
-        if( noteType.equals(CommonValue.ALL_THE_NOTES)){
-            noteList=noteDAO.getScrollData();
-        }else{
-            noteList=noteDAO.getScrollData(noteType);
-        }
-
-
     }
     private  void  setNote_list(){
         note_list=new ArrayList<HashMap<String,String>>();
