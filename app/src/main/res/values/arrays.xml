@@ -8,4 +8,9 @@
         <item>Work</item>
         <item>Others</item>
     </string-array>
+    <string-array name="chartType">
+        <item>Note_type Pie Chart</item>
+        <item>Write_time Bar Chart</item>
+        <item>NoteNumber Line Chart</item>
+    </string-array>
 </resources>

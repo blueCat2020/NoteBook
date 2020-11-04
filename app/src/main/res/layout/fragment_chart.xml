@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/app_bar_height"
+    tools:context=".ui.chart.ChartFragment"
+    >
+
+    <Spinner
+        android:id="@+id/chart_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:alwaysDrawnWithCache="false"
+        android:dropDownVerticalOffset="30dp"
+        android:entries="@array/chartType"
+        android:spinnerMode="dropdown" />
+    <com.example.anan.AAChartCore.AAChartCoreLib.AAChartCreator.AAChartView
+        android:id="@+id/AAChartView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </com.example.anan.AAChartCore.AAChartCoreLib.AAChartCreator.AAChartView>
+
+
+</LinearLayout>

@@ -1,14 +1,14 @@
-package com.swufe.zbp.notebook.ui.theme_style;
+package com.swufe.zbp.notebook.ui.chart;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class ThemeStyleViewModel extends ViewModel {
+public class ChartViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public ThemeStyleViewModel() {
+    public ChartViewModel() {
         mText = new MutableLiveData<>();
         mText.setValue("This is themeStyle fragment");
     }

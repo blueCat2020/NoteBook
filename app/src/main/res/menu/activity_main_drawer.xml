@@ -13,9 +13,9 @@
             android:icon="@android:drawable/ic_menu_set_as"
             android:title="@string/share" />
         <item
-            android:id="@+id/nav_theme_style"
+            android:id="@+id/nav_chart"
             android:icon="@drawable/theme_style"
-            android:title="@string/theme_style" />
+            android:title="@string/statistical_chart" />
         <item
             android:id="@+id/nav_about"
             android:icon="@android:drawable/ic_menu_info_details"

@@ -46,22 +46,19 @@ public class HomeFragment extends Fragment {
     private  SearchView searchView;
     private  Spinner spinner;
     private NoteDAO noteDAO;
-    private ImageButton refresh;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         homeViewModel =
-                new ViewModelProvider(this).get(HomeViewModel.class);
+                new ViewModelProvider(getActivity()).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
+        homeViewModel.setNoteDAO(new NoteDAO(getContext()));
+        homeViewModel.getNoteList().observe(getViewLifecycleOwner(), notes -> {
 
-        listView= root.findViewById(R.id.noteList);
-
-        homeViewModel.getNoteList().observe(getViewLifecycleOwner(), new Observer<List<Note>>() {
-            @Override
-            public void onChanged(List<Note> notes) {
-                Log.i(TAG, "onChanged: ");
-            }
-
+            Log.i(TAG, "onChanged: ");
+            noteList=homeViewModel.getNoteList().getValue();
+            setNote_list();
+            setListView();
         });
         Log.i(TAG, "onCreateView: ");
         return root;
@@ -71,15 +68,15 @@ public class HomeFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         noteDAO=new NoteDAO(getContext());
+        listView= getActivity().findViewById(R.id.noteList);
         spinner=getActivity().findViewById(R.id.note_type);
-        refresh= getActivity().findViewById(R.id.refresh);
         searchView=getActivity().findViewById(R.id.searchView);
-
-
-        setNoteList(CommonValue.ALL_THE_NOTES);
+        noteList=homeViewModel.getNotesData(CommonValue.ALL_THE_NOTES);
         setNote_list();
-        homeViewModel.setNoteList(noteList);
         setListView();
+
+/*
+        setNoteList(CommonValue.ALL_THE_NOTES);
 
         refresh.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,11 +106,12 @@ public class HomeFragment extends Fragment {
         });
 
         TypeSelectListener(spinner);
+
+ */
         setOnItemClickListener(listView);
         setMenuItemClickListener(listView);
         Log.i(TAG, "onActivityCreated: ");
     }
-
     private void setNoteList(String noteType){
 
         if( noteType.equals(CommonValue.ALL_THE_NOTES)){
@@ -121,7 +119,7 @@ public class HomeFragment extends Fragment {
         }else{
             noteList=noteDAO.getScrollData(noteType);
         }
-        Log.i(TAG, "setNoteList: ");
+
 
     }
     private  void  setNote_list(){
@@ -200,34 +198,7 @@ public class HomeFragment extends Fragment {
         });
         Log.i(TAG, "setOnItemClickListener: ");
     }
-    private void TypeSelectListener(Spinner spinner){
 
-        //给Spinner添加事件监听
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-            //当选中某一个数据项时触发该方法
-            /*
-             * parent接收的是被选择的数据项所属的 Spinner对象，
-             * view参数接收的是显示被选择的数据项的TextView对象
-             * position接收的是被选择的数据项在适配器中的位置
-             * id被选择的数据项的行号
-             */
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view,int position, long id) {
-                String noteType = (String)spinner.getItemAtPosition(position);//从spinner中获取被选择的数据
-                Toast.makeText(getContext(), noteType, Toast.LENGTH_SHORT).show();
-                setNoteList(noteType);
-                setNote_list();
-                setListView();
-                Log.i(TAG, "onItemSelected: ");
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                // TODO Auto-generated method stub
-            }
-        });
-    }
 
     @Override
     public void onDestroy() {

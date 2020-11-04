@@ -17,10 +17,10 @@
         tools:layout="@layout/fragment_share" />
 
     <fragment
-        android:id="@+id/nav_theme_style"
-        android:name="com.swufe.zbp.notebook.ui.theme_style.ThemeStyleFragment"
-        android:label="@string/theme_style"
-        tools:layout="@layout/fragment_theme_style" />
+        android:id="@+id/nav_chart"
+        android:name="com.swufe.zbp.notebook.ui.chart.ChartFragment"
+        android:label="@string/statistical_chart"
+        tools:layout="@layout/fragment_chart" />
 
     <fragment
         android:id="@+id/nav_about"
